@@ -1,0 +1,36 @@
+<% include ./partials/header %>
+
+<h1>Welcome to the Fields of Study Page</h1>
+
+<div class = "container">
+    <header class = "jumbotron">
+        <div class="container">
+            <h1>Fields of Study</h1>
+            <p>Read and Review UVic Courses</p>
+            <p>
+                <a class = "btn btn-primary btn-large" href="/fields/new">Add New Field of Study</a>
+            </p>
+        </div>
+    </header>
+    
+     <div class = "row text-center" style="display:flex; flex-wrap: wrap;">
+     <% fields.forEach(function(field){ %>
+        <div class = "col-md-3 col-sm-6">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h4><%= field.name%></h4>
+                </div>
+                <div class="caption">
+                    <h4><%= field.abbreviation%></h4>
+                </div>
+                <div class="btn btn-lg btn-primary"><a class="MoreCourses" href="/fields/<%=field._id%>">Show Courses</a></div>
+            </div>
+        </div>
+    <% }); %>
+    </div>
+    
+</div>
+
+<a class = "btn btn-lg btn-success" href = "/">Go back to the Home Page</a>
+
+<% include ./partials/footer.ejs %>

@@ -1,0 +1,25 @@
+<% include ./partials/header %>
+
+<div class="container">
+    <div class="row">
+       <h1 style="text-align: center;">Create a new Course in: <%=field.name%></h1>
+        <div style="width: 30%; margin: 25px auto;">
+            <form action="/fields/<%=field._id%>" method = "POST">
+                <div class="form-group">
+                    <input class = "form-control" type="text" name="course[name]" placeholder="Name">                    
+                </div>
+                <div class="form-group">
+                    <input class = "form-control" type="text" name="course[number]" placeholder="Number">                    
+                </div>
+                <div class="form-group">
+                    <input class = "form-control" type="text" name="course[description]" placeholder="Description">                    
+                </div>
+                    <button class="btn btn-lg btn-primary btn-block">Submit!</button>                    
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<a class = "btn btn-lg btn-success" href = "/">Go back to the Home Page</a>
+
+<% include ./partials/footer.ejs %>

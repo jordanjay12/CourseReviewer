@@ -1,0 +1,36 @@
+<% include ./partials/header %>
+
+<div class = "container">
+    <header class = "jumbotron">
+        <div class="container">
+            <h1><%=field.abbreviation%>: <%=field.name%></h1>
+            <p>Review past <%=field.name%> courses</p>
+            <p>Read about future <%=field.name%> courses</p>
+            <p>
+                <a class = "btn btn-primary btn-large" href="/fields/<%=field._id%>/new">Add New Course</a>
+            </p>
+        </div>
+    </header>
+    
+    <div class = "row text-center" style="display:flex; flex-wrap: wrap;">
+    <% field.courses.forEach(function(course){ %>
+        <div class = "col-md-3 col-sm-6">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h4><%=field.abbreviation%>: <%= course.number%></h4>
+                </div>
+                <div class="caption">
+                    <h4><%= course.name%></h4>
+                </div>
+                <div class="btn btn-lg btn-primary"><a class="MoreCourses" href="/fields/<%=field._id%>/<%=course._id%>">Show More</a></div>
+            </div>
+        </div>
+    <% }); %>
+    </div>
+
+    
+</div>
+
+<a class = "btn btn-lg btn-success" href = "/">Go back to the Home Page</a>
+
+<% include ./partials/footer.ejs %>

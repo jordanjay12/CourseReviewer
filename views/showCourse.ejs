@@ -1,0 +1,33 @@
+<% include ./partials/header %>
+
+<div class="container">
+
+    <!--Jumbotron for the TITLE-->
+    <div class="jumbotron">
+        <h1>WELCOME TO THE SHOW COURSE HOME PAGE</h1>
+        <p><%= field.abbreviation%> <%=course.number%>: <%=course.name%></p>
+    </div>
+
+    <div class="row">
+        <div class ="col-md-3">
+            <p class ="lead"><%=field.abbreviation%> <%=course.number%></p>
+            <li class="list-group-item">Difficulty</li>
+            <li class="list-group-item">Workload</li>
+            <li class="list-group-item">Relevance</li>
+        </div>
+        
+        <div class="col-md-9">
+            <div class="well">
+                <div class ="text-right">
+                    <a class="btn btn-success btn-lg" href="/fields/<%=field._id%>/<%=course._id%>/new">Add Review</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+
+
+<% include ./partials/footer %>
