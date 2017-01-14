@@ -118,7 +118,7 @@ app.get("/fields/:id/:courseid", function(req, res){
         if(err){
             console.log(err);
         }else{
-            Course.findById(req.params.courseid, function(err, course){
+            Course.findById(req.params.courseid).populate("comments").exec(function(err, course){
                 if(err){
                     console.log(err);
                 }else{
@@ -173,6 +173,40 @@ app.post("/fields/:id/:courseid", function(req,res){
     })
 })
 
+// COMMENT EDIT ROUTE
+app.get("/fields/:id/:courseid/:commentid/edit", function(req,res){
+    Comment.findById(req.params.commentid, function(err, comment){
+        if(err){
+            res.redirect("back");
+        }else{
+            res.render("editComment", {comment: comment, field_id: req.params.id, course_id: req.params.courseid})
+        }
+    })
+})
+
+// COMMENT UPDATE ROUTE
+app.put("/fields/:id/:courseid/:commentid", function(req,res){
+    Comment.findByIdAndUpdate(req.params.commentid, req.body.comment, function(err, updatedComment){
+        if(err){
+            console.log(err);
+        }else{
+            res.redirect("/fields/" + req.params.id + "/" + req.params.courseid);
+        }
+    })
+})
+
+// COMMENT DESTROY ROUTE
+app.delete("/fields/:id/:courseid/:commentid", function(req, res){
+   Comment.findByIdAndRemove(req.params.commentid, function(err){
+      if(err){
+          console.log("There was an error while trying to delete the comment");
+      } else{
+          console.log("successfully deleted the comment");
+          //res.redirect("/fields");
+          res.redirect("/fields/" + req.params.id + "/" + req.params.courseid);
+      }
+   });
+});
 
 app.listen(process.env.PORT, process.env.IP, function(){
    console.log("UVic Course Review App has started");

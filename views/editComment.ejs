@@ -1,0 +1,32 @@
+<% include ./partials/header %>
+
+<h1>Welcome to the edit comment page!</h1>
+<div class="container">
+    <div class = "row">
+        <h1 style = "text-align: center">Edit Comment</h1>
+        <div style="width: 30%; margin: 25px auto">
+            <form action="/fields/<%=field_id%>/<%=course_id%>/<%=comment._id%>?_method=PUT" method = "POST">
+                <div class="form-group">
+                    <input class = "form-control" type="text" name="comment[professor]" value=<%=comment.professor%>>                    
+                </div>
+                <div class="form-group">
+                    <input class = "form-control" type="text" name="comment[year]" value=<%=comment.year%>>                    
+                </div>
+                <div class="form-group">
+                    <input class = "form-control" type="text" name="comment[difficulty]" value=<%=comment.difficulty%>>                    
+                </div>
+                <div class="form-group">
+                    <input class = "form-control" type="text" name="comment[material]" value=<%= comment.material%>>                    
+                </div>
+                <div class="form-group">
+                    <input class = "form-control" type="text" name="comment[other]" value=<%=comment.other%>>                    
+                </div>                
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit!</button>                    
+                </div>                
+            </form>
+        </div>
+    </div>
+</div>
+
+<% include ./partials/footer %>

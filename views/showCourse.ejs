@@ -21,8 +21,25 @@
                 <div class ="text-right">
                     <a class="btn btn-success btn-lg" href="/fields/<%=field._id%>/<%=course._id%>/new">Add Review</a>
                 </div>
+           
+                <% course.comments.forEach(function(comment){ %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p><strong>Professor: </strong><%= comment.professor%></p>
+                            <p><strong>Year: </strong><%= comment.year%></p>
+                            <p><strong>Difficulty: </strong><%= comment.difficulty%></p>
+                            <p><strong>Course Material: </strong><%= comment.material%></p>
+                            <p><strong>Other: </strong><%= comment.other%></p>
+                            <a class="btn btn-warning btn-xs" href="/fields/<%=field._id%>/<%=course._id%>/<%=comment._id%>/edit">Edit</a>
+                            <form id="delete-form" action="/fields/<%=field._id%>/<%=course._id%>/<%=comment._id%>?_method=DELETE" method="POST">
+                                <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                            </form>                            
+                        </div>
+                    </div>
+                <% }); %>  
             </div>
         </div>
+    
     </div>
     
 </div>
