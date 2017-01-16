@@ -30,10 +30,14 @@
                             <p><strong>Difficulty: </strong><%= comment.difficulty%></p>
                             <p><strong>Course Material: </strong><%= comment.material%></p>
                             <p><strong>Other: </strong><%= comment.other%></p>
-                            <a class="btn btn-warning btn-xs" href="/fields/<%=field._id%>/<%=course._id%>/<%=comment._id%>/edit">Edit</a>
-                            <form id="delete-form" action="/fields/<%=field._id%>/<%=course._id%>/<%=comment._id%>?_method=DELETE" method="POST">
-                                <input type="submit" class="btn btn-xs btn-danger" value="Delete">
-                            </form>                            
+                            <p><em>Submitted by: <%= comment.author.username %></em></P>
+                            <% if(currentUser && comment.author.id.equals(currentUser._id)){%>
+                                <a class="btn btn-warning btn-xs" href="/fields/<%=field._id%>/<%=course._id%>/<%=comment._id%>/edit">Edit</a> 
+                                <form id="delete-form" action="/fields/<%=field._id%>/<%=course._id%>/<%=comment._id%>?_method=DELETE" method="POST">
+                                    <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                                </form>                            
+                            <% }; %>
+                            <hr>
                         </div>
                     </div>
                 <% }); %>  
@@ -43,8 +47,5 @@
     </div>
     
 </div>
-
-
-
 
 <% include ./partials/footer %>

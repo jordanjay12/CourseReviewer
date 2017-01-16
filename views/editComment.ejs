@@ -6,18 +6,23 @@
         <h1 style = "text-align: center">Edit Comment</h1>
         <div style="width: 30%; margin: 25px auto">
             <form action="/fields/<%=field_id%>/<%=course_id%>/<%=comment._id%>?_method=PUT" method = "POST">
+                <p>Professor:</p>
                 <div class="form-group">
                     <input class = "form-control" type="text" name="comment[professor]" value=<%=comment.professor%>>                    
                 </div>
+                <p>Year:</p>
                 <div class="form-group">
                     <input class = "form-control" type="text" name="comment[year]" value=<%=comment.year%>>                    
                 </div>
+                <p>Difficulty:</p>
                 <div class="form-group">
                     <input class = "form-control" type="text" name="comment[difficulty]" value=<%=comment.difficulty%>>                    
                 </div>
+                <p>Course Material:</p>
                 <div class="form-group">
                     <input class = "form-control" type="text" name="comment[material]" value=<%= comment.material%>>                    
                 </div>
+                <p>Other:</p>
                 <div class="form-group">
                     <input class = "form-control" type="text" name="comment[other]" value=<%=comment.other%>>                    
                 </div>                
