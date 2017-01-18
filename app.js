@@ -10,8 +10,9 @@ var passport = require("passport");
 var LocalStrategy = require("passport-local");
 
 
-mongoose.connect("mongodb://localhost/course_review");
-
+// mongoose.connect("mongodb://localhost/course_review");
+// mongodb://Jordan:password@ds117819.mlab.com:17819/uviccoursereview
+mongoose.connect("mongodb://Jordan:password@ds117819.mlab.com:17819/uviccoursereview");
 
 // INCLUDING THE MODELS FOR MY DATABASES
 var Field = require("./models/field");
