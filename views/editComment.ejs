@@ -1,6 +1,5 @@
 <% include ./partials/header %>
 
-<h1>Welcome to the edit comment page!</h1>
 <div class="container">
     <div class = "row">
         <h1 style = "text-align: center">Edit Comment</h1>
@@ -16,8 +15,22 @@
                 </div>
                 <p>Difficulty:</p>
                 <div class="form-group">
-                    <input class = "form-control" type="text" name="comment[difficulty]" value=<%=comment.difficulty%>>                    
+                    <select required class="form-control" type="number" name ="comment[difficulty]" value=<%=comment.difficulty%>>
+                        <option selected disabled value ="">Course Difficulty</option>
+                        <% for(var i = 0; i < 11; i++){ %>
+                        <option><%=i%></option>
+                        <% } %>
+                    </select>
                 </div>
+                <p>Course Workload:</p>
+                <div class="form-group">
+                    <select required class="form-control" type="number" name ="comment[workload]" placeholder="workload">
+                        <option selected disabled value ="">Course Workload</option>
+                        <% for(var i = 0; i < 11; i++){ %>
+                        <option><%=i%></option>
+                        <% } %>
+                    </select>
+                </div>                  
                 <p>Course Material:</p>
                 <div class="form-group">
                     <input class = "form-control" type="text" name="comment[material]" value=<%= comment.material%>>                    

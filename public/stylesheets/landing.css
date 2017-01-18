@@ -2,14 +2,6 @@ body{
     background: black;
 }
 
-#landing-header{
-    text-align: center;
-    color: white;
-    z-index: 1;
-    position: relative;
-    padding-top: 40vh;
-}
-
 #school{
     position: fixed;
     width: 100%;
@@ -21,4 +13,12 @@ body{
     padding: 0;
     background-size: cover;
     background-position: 50% 50%;
+}
+
+#landing-header{
+    text-align: center;
+    color: white;
+    z-index: 1;
+    position: relative;
+    padding-top: 40vh;
 }

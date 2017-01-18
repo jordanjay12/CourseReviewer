@@ -40,8 +40,8 @@ passport.deserializeUser(User.deserializeUser());
 // this will be provided on every route
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
-    // res.locals.error = req.flash("error");
-    // res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
 });
 
@@ -61,7 +61,7 @@ app.get("/fields", function(req, res){
 })
 
 // show form to create new field
-app.get("/fields/new", function(req, res){
+app.get("/fields/new", isLoggedIn, function(req, res){
     res.render("new")
 })
 
@@ -99,7 +99,7 @@ app.get("/fields/:id", function(req, res){
 });
 
 // create a new course
-app.get("/fields/:id/new", function(req, res){
+app.get("/fields/:id/new", isLoggedIn, function(req, res){
     Field.findById(req.params.id).exec(function(err, foundField){
         if(err){
             console.log(err);
@@ -174,6 +174,7 @@ app.post("/fields/:id/:courseid", isLoggedIn, function(req,res){
     Field.findById(req.params.id, function(err, field){
         if(err){
             console.log(err);
+            res.redirect("/fields");
         }else{
             Course.findById(req.params.courseid, function(err, course){
                 if(err){
@@ -181,6 +182,7 @@ app.post("/fields/:id/:courseid", isLoggedIn, function(req,res){
                 }else{
                     Comment.create(req.body.comment, function(err, comment){
                         if(err){
+                            req.flash("error", "Something went wrong");
                             console.log(err);
                         }else{
                             comment.author.id = req.user._id;
@@ -189,6 +191,7 @@ app.post("/fields/:id/:courseid", isLoggedIn, function(req,res){
                             course.comments.push(comment);
                             course.save();
                             console.log("Successfully found the post route and added a new comment");
+                            req.flash("success", "Successfully added review");
                             res.redirect("/fields/" + field.id +"/" + course.id);
                         }
                     })
@@ -228,6 +231,7 @@ app.delete("/fields/:id/:courseid/:commentid", checkCommentOwnership, function(r
       } else{
           console.log("successfully deleted the comment");
           //res.redirect("/fields");
+          req.flash("succcess", "Review Deleted");
           res.redirect("/fields/" + req.params.id + "/" + req.params.courseid);
       }
    });
@@ -243,9 +247,11 @@ app.post("/register", function(req, res){
     var newUser = new User({username: req.body.username});
     User.register(newUser, req.body.password, function(err, user){
         if(err){
+            req.flash("error", err.message)
             return res.redirect("register")
         }
         passport.authenticate("local")(req, res, function(){
+            req.flash("success", "Welcome to the UVic Course Review" + user.username);
             res.redirect("/fields");
         })
     }) // provided by the passport-local-mangoose package
@@ -255,7 +261,7 @@ app.post("/register", function(req, res){
 app.get("/login", function(req, res){
     //console.log("Inside of the /login function:");
     //console.log(req.flash("error"));
-    res.render("login", {message: req.flash("error")});
+    res.render("login");
 })
 
 // HANDLING LOGIN LOGIC
@@ -268,6 +274,7 @@ app.post("/login", passport.authenticate("local" ,
 
 app.get("/logout", function(req, res){
     req.logout();
+    req.flash("success", "Logged you out!");
     res.redirect("/fields");
 })
 
@@ -276,7 +283,7 @@ function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
         return next();
     }
-    req.flash("error", "Please Login First!!!");
+    req.flash("error", "You need to be logged in to do that");
     //console.log("INSIDE OF THE MIDDLEWARE");
     //console.log(req.flash("error"));
     res.redirect("/login");
@@ -286,6 +293,7 @@ function checkCommentOwnership(req, res, next){
     if(req.isAuthenticated()){
         Comment.findById(req.params.commentid, function(err, foundComment){
             if(err){
+                req.flash("error", "Course Not Found");
                 res.redirect("back");
             }else{
                 // does the user own the comment?
@@ -294,15 +302,16 @@ function checkCommentOwnership(req, res, next){
                 if(foundComment.author.id.equals(req.user._id)){
                     next();
                 }else{
+                    req.flash("error", "You don't have permission to do that");
                     res.redirect("back");
                 }
             }
         });
     }else{
+        req.flash("error", "You need to be logged in to do that");
         res.redirect("back");
     }
 }
-
 
 app.listen(process.env.PORT, process.env.IP, function(){
    console.log("UVic Course Review App has started");
