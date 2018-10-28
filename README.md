@@ -1,12 +1,11 @@
 # CourseReviewer
 
-An application that allows you to read about courses offered at your university, and review them based on your own experiences.
+An application that allows you to read about courses offered at the University of Victoria, and review them based on your own experiences.
 
-The webpage can be used by visiting: https://quiet-scrubland-46156.herokuapp.com/
+[Checkout the Live Application]( https://quiet-scrubland-46156.herokuapp.com/)
 
 ## App screenshots
 
-This is what the site looks like :)
 
 ### Landing page
 
@@ -14,7 +13,7 @@ This is what the site looks like :)
 
 ### Fields of study
 
-Here, you can find the field of study you are interested in or search for one that isn't already added
+Here, you can find the field of study you are interested in or create one if it doesn't exist yet.
 
 ![FieldOfStudy](/img/fieldofstudy.png)
 
